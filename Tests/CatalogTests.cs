@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit.Abstractions;
 
 namespace PlaywrightTests.Tests
 {
     public class CatalogTests : TestBase
     {
+        public CatalogTests(ITestOutputHelper output) : base(output)
+        {
+        }
 
         [Fact]
         public async Task CatalogCanBeOpened()

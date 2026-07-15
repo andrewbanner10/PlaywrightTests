@@ -1,11 +1,16 @@
-﻿using Microsoft.Playwright;
+﻿using Allure.Xunit.Attributes;
+using Microsoft.Playwright;
 using PlaywrightTests.Pages;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace PlaywrightTests.Tests;
 
 public class CartTests : TestBase
 {
+    public CartTests(ITestOutputHelper output) : base(output)
+    {
+    }
 
     [Fact]
     public async Task CartShouldDisplayEmptyMessageWhenNoItemsAdded()
@@ -13,46 +18,29 @@ public class CartTests : TestBase
         // Arrange
         await HomePage.NavigateAsync();
 
-
         // Act
         await CartPage.OpenCartAsync();
 
-
-        //Assert
-        await Expect(CartPage.EmptyCartMessage)
-            .ToBeVisibleAsync();
-
-        await Expect(
-            CartPage.EmptyCartMessage
-        )
-        .ToHaveTextAsync("Your cart is empty.");
+        // Assert
+        await Expect(CartPage.EmptyCartMessage).ToBeVisibleAsync();
+        await Expect(CartPage.EmptyCartMessage).ToHaveTextAsync("Your cart is empty.");
     }
 
-    //This test fails as the cart fails to load
-    // Would raise this as a bug
     [Fact]
     public async Task UserShouldAddProductAndViewProductInCart()
     {
-        //Arrange 
+        // Arrange 
         await HomePage.NavigateAsync();
 
-        //Act
+        // Act
         await HomePage.OpenFirstProductAsync();
 
-        var productName =
-            await ProductPage.GetProductNameAsync();
-
+        var productName = await ProductPage.GetProductNameAsync();
         await ProductPage.AddToCartAsync();
-
         await CartPage.OpenCartAsync();
 
-        //Asserts
-
-        await Expect(CartPage.CartItems)
-            .ToHaveCountAsync(1);
-
-        Assert.True(
-            await CartPage.CartContainsProductAsync(productName)
-        );
+        // Asserts
+        await Expect(CartPage.CartItems).ToHaveCountAsync(1);
+        Assert.True(await CartPage.CartContainsProductAsync(productName));
     }
 }
