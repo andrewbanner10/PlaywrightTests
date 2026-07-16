@@ -18,14 +18,6 @@ public abstract class TestBase : PageTest
     protected CatalogPage CatalogPage = null!;
     protected AppConfig AppConfig { get; private set; } = null!;
 
-    protected readonly ITestOutputHelper Output;
-
-    protected TestBase(ITestOutputHelper output)
-    {
-        Output = output;
-    }
-
-
     public override async Task InitializeAsync()
     {
         await base.InitializeAsync();
@@ -60,7 +52,12 @@ public abstract class TestBase : PageTest
             }
             catch (Exception ex)
             {
-                Output.WriteLine($"Failed to take screenshot: {ex.Message}");
+                AllureApi.AddAttachment(
+                    name: "Screenshot Capture Failed",
+                    type: "text/plain",
+                    content: System.Text.Encoding.UTF8.GetBytes(ex.ToString()),
+                    fileExtension: ".txt"
+                 );
             }
         }
 

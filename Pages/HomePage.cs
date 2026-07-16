@@ -13,9 +13,7 @@ public class HomePage : CommonPage
 
 
 
-    // -----------------------
     // Locators
-    // -----------------------
 
     private ILocator Logo =>
         Page.Locator("header img");
@@ -27,7 +25,7 @@ public class HomePage : CommonPage
     private ILocator FirstProduct =>
     Page.Locator("a[href*='/products/']").First;
 
-
+    // Methods
     public async Task NavigateAsync()
     {
         await base.NavigateAsync(

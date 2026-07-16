@@ -5,9 +5,6 @@ namespace PlaywrightTests.Tests;
 
 public class HomeTests : TestBase
 {
-    public HomeTests(ITestOutputHelper output) : base(output)
-    {
-    }
 
     [Fact]
     public async Task HomePageShouldLoadSuccessfully()

@@ -17,17 +17,19 @@ public class CartPage : CommonPage
         Page.GetByText("Your cart is empty.");
 
 
-    public ILocator CartItems =>
-        Page.Locator(".cart-item");
+    public ILocator ItemsInCartCount =>
+        Page.Locator("#cart-target-desktop span.count");
 
     public ILocator CartProductNames =>
     Page.Locator(".cart-item .product-name");
 
     //methods
 
-    public async Task<int> GetCartItemCountAsync()
+    public async Task<string> GetCartItemCountAsync()
     {
-        return await CartItems.CountAsync();
+        await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+
+        return await ItemsInCartCount.InnerTextAsync();
     }
 
     public async Task<bool> CartContainsProductAsync(string productName)

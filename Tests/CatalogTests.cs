@@ -10,9 +10,6 @@ namespace PlaywrightTests.Tests
 {
     public class CatalogTests : TestBase
     {
-        public CatalogTests(ITestOutputHelper output) : base(output)
-        {
-        }
 
         [Fact]
         public async Task CatalogCanBeOpened()
@@ -29,14 +26,19 @@ namespace PlaywrightTests.Tests
                 await CatalogPage.GetCatalogItemsAsync();
 
             //Assert 
-            Assert.True(catalogCount > 0);
+            Assert.True(catalogCount > 0, "Expected the home page to display at least one product.");
         }
 
         [Fact]
 
         public async Task SoldOutItemCannotBeAddedToCart()
         {
-            await CatalogPage.CatalogNavigateAsync(); 
+            await CatalogPage.CatalogNavigateAsync();
+
+            await CatalogPage.OpenFirstSoldOutProductAsync();
+
+            await Expect(ProductPage.SoldOutButton).ToBeVisibleAsync();
+            await Expect(ProductPage.AddToCartButton).ToHaveCountAsync(0);
         }
 
     }
