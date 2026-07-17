@@ -10,15 +10,15 @@ public class ProductTests : TestBase
     [InlineData("L")]
     public async Task UserCanAddItemWithSizesToCart(string size)
     {
-        // Navigate to catalog
+        //Arrange - Navigate to catalog
         await CatalogPage.CatalogNavigateAsync();
 
-        // Select Noir Jacket, Size and Add to card
+        //Act - Select Noir Jacket, Size and Add to card
         await CatalogPage.SelectProductAsync("Noir jacket");
         await ProductPage.SelectSizeAsync(size);
         await ProductPage.AddToCartAsync();
 
-        // Check cart updated
+        //Assert - Check cart updated
         var cartCount = await CartPage.GetCartItemCountAsync();
 
         Assert.True(
@@ -32,15 +32,15 @@ public class ProductTests : TestBase
     [InlineData("Blue")]
     public async Task UserCanAddItemWithColoursToCart(string colour)
     {
-        // Navigate to catalog
+        // Arrange -Navigate to catalog
         await CatalogPage.CatalogNavigateAsync();
 
-        // Select Noir Jacket, Size and Add to card
+        // Act - Select Noir Jacket, Colour and Add to card
         await CatalogPage.SelectProductAsync("Noir jacket");
         await ProductPage.SelectColourAsync(colour);
         await ProductPage.AddToCartAsync();
 
-        // Check cart updated
+        // Assert - Check cart updated
         var cartCount = await CartPage.GetCartItemCountAsync();
 
         Assert.True(
@@ -55,16 +55,16 @@ public class ProductTests : TestBase
     [InlineData("L", "Red")]
     public async Task UserCanAddItemWithColoursAndSizeToCart(string size, string colour)
     {
-        // Navigate to catalog
+        // Arrange - Navigate to catalog
         await CatalogPage.CatalogNavigateAsync();
 
-        // Select Noir Jacket, Size and Add to card
+        // Act - Select Noir Jacket, Size, Colour and Add to card
         await CatalogPage.SelectProductAsync("Noir jacket");
         await ProductPage.SelectSizeAsync(size);
         await ProductPage.SelectColourAsync(colour);
         await ProductPage.AddToCartAsync();
 
-        // Check cart updated
+        // Assert - Check cart updated
         var cartCount = await CartPage.GetCartItemCountAsync();
 
         Assert.True(

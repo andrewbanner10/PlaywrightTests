@@ -33,10 +33,13 @@ namespace PlaywrightTests.Tests
 
         public async Task SoldOutItemCannotBeAddedToCart()
         {
+            //Arrange
             await CatalogPage.CatalogNavigateAsync();
 
+            //Act
             await CatalogPage.OpenFirstSoldOutProductAsync();
 
+            //Assert
             await Expect(ProductPage.SoldOutButton).ToBeVisibleAsync();
             await Expect(ProductPage.AddToCartButton).ToHaveCountAsync(0);
         }
