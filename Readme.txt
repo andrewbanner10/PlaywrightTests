@@ -37,18 +37,44 @@ on commit or pr or rerun select job from within github actions)
 
 Running the tests
 
-Ensure playwright is installed
+Ensure git is installed
 Ensure .net9.0 is installed
-clone the repository
+Ensure powershell is installed
 
-within the solution open your terminal (you may need powershell installed)
+open visual studio - clone the repository - https://github.com/andrewbanner10/PlaywrightTests.git
+build - rebuild solution
+run the test in test explorer
+
+View results 
+
+in the terminal cd to your repo for the solution (if not already there)
+then into the bin
+then to Debug
+then to net9.0
+
+then run
+allure serve allure-results
+
+if you are not using visual studio then in your ide of choice run the following commands in a terminal
+
 dotnet restore
 dotnet build
 pwsh bin/Debug/net9.0/playwright.ps1 install
 
-dotnet test   will run the test
-allure serve allure-results  to view the results in a HTML report
+Run the tests
 
+dotnet test
 
-If you are running visual studio, clone the repository, rebuild the solution and run the tests from test explorer.
-This is IDE that has been used for the  framework / task
+View results 
+
+in the terminal cd to your repo for the solution (if not already there)
+then into the bin
+then to Debug
+then to net9.0
+
+then run
+allure serve allure-results
+
+or open the repo in file explorer, navigate to the bin, debug,net9.0 file and open powershell from within that 
+window (shift right click)
+run the command  allure serve allure-results
