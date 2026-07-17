@@ -28,6 +28,9 @@ public class ProductPage : CommonPage
     private ILocator SizeDropdown =>
     Page.Locator("#product-select-option-0");
 
+    private ILocator ColourDropdown =>
+    Page.Locator("#product-select-option-1");
+
     //methods
 
     public async Task AddToCartAsync()
@@ -45,5 +48,10 @@ public class ProductPage : CommonPage
     public async Task SelectSizeAsync(string size)
     {
         await SizeDropdown.SelectOptionAsync(size);
+    }
+
+    public async Task SelectColourAsync(string colour)
+    {
+        await ColourDropdown.SelectOptionAsync(colour);
     }
 }

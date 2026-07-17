@@ -34,5 +34,9 @@
       <Generator></Generator>
     </None>
   </ItemGroup>
+	
+  <ItemGroup>
+    <None Include=".github\workflows\playwright.yml" />
+  </ItemGroup>
 
 </Project>

@@ -1,0 +1,104 @@
+﻿name: Playwright Tests
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+
+  pull_request:
+    branches:
+      - main
+      - master
+      - develop
+
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 30
+
+    steps:
+
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+
+
+    - name: Cache NuGet packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
+
+    - name: Restore packages
+      run: dotnet restore
+
+
+    - name: Build solution
+      run: dotnet build --configuration Release --no-restore
+
+
+    - name: Install Playwright browsers
+      run: |
+        pwsh bin/Release/net9.0/playwright.ps1 install --with-deps
+
+
+    - name: Run Playwright tests
+      continue-on-error: true
+      run: |
+        dotnet test --configuration Release --no-build
+
+
+    # Install Allure command line tool
+    - name: Install Allure CLI
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y default-jre
+        npm install -g allure-commandline
+
+
+    # Generate HTML report
+    - name: Generate Allure Report
+      if: always()
+      run: |
+        allure generate allure-results --clean -o allure-report
+
+
+    # Upload HTML report
+    - name: Upload Allure HTML Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-report
+        path: allure-report
+
+
+    # Upload raw results
+    - name: Upload Allure Results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-results
+        path: allure-results
+
+
+    # Upload screenshots if tests fail
+    - name: Upload Screenshots
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: screenshots
+        path: Screenshots
+        if-no-files-found: ignore
