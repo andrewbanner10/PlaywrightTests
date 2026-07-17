@@ -68,13 +68,14 @@ jobs:
         sudo apt-get install -y default-jre
         npm install -g allure-commandline
 
-
     # Generate HTML report
     - name: Generate Allure Report
       if: always()
       run: |
-        # Search recursively for the raw results folder to generate the HTML report
-        allure generate **/allure-results --clean -o allure-report
+        echo "Finding allure-results folders..."
+        find . -type d -name "allure-results"
+
+        allure generate $(find . -type d -name "allure-results" | head -n 1) --clean -o allure-report
 
     # Upload HTML report
     - name: Upload Allure HTML Report
