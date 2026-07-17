@@ -59,6 +59,7 @@ jobs:
       continue-on-error: true
       run: |
         dotnet test --configuration Release --no-build
+        ALLURE_RESULTS_DIRECTORY: allure-results
 
 
     # Install Allure command line tool
