@@ -59,7 +59,6 @@ jobs:
       continue-on-error: true
       run: |
         dotnet test --configuration Release --no-build
-        ALLURE_RESULTS_DIRECTORY: allure-results
 
 
     # Install Allure command line tool
@@ -74,8 +73,8 @@ jobs:
     - name: Generate Allure Report
       if: always()
       run: |
-        allure generate allure-results --clean -o allure-report
-
+        # Search recursively for the raw results folder to generate the HTML report
+        allure generate **/allure-results --clean -o allure-report
 
     # Upload HTML report
     - name: Upload Allure HTML Report
@@ -85,14 +84,13 @@ jobs:
         name: allure-report
         path: allure-report
 
-
     # Upload raw results
     - name: Upload Allure Results
       if: always()
       uses: actions/upload-artifact@v4
       with:
         name: allure-results
-        path: allure-results
+        path: "**/allure-results" # <-- This wildcard finds it wherever .NET compiled and ran it
 
 
     # Upload screenshots if tests fail
