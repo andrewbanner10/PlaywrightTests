@@ -55,7 +55,11 @@ then to net9.0
 then run
 allure serve allure-results
 
-if you are not using visual studio then in your ide of choice run the following commands in a terminal
+
+
+~Results and process may differ depending on your IDE
+
+if you are not using visual studio then in your ide of choice run the following commands in a terminal against the solution
 
 dotnet restore
 dotnet build
