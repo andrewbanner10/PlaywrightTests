@@ -47,17 +47,10 @@ run the test in test explorer
 
 View results 
 
-in the terminal cd to your repo for the solution (if not already there)
-then into the bin
-then to Debug
-then to net9.0
-
-then run
-allure serve allure-results
+run command in your terminal within visual studio  allure serve bin\Debug\net9.0\allure-results
 
 
-
-~Results and process may differ depending on your IDE
+~Results and process may differ depending on your IDE 
 
 if you are not using visual studio then in your ide of choice run the following commands in a terminal against the solution
 
@@ -67,18 +60,8 @@ pwsh bin/Debug/net9.0/playwright.ps1 install
 
 Run the tests
 
-dotnet test
+run command  dotnet test
 
 View results 
 
-in the terminal cd to your repo for the solution (if not already there)
-then into the bin
-then to Debug
-then to net9.0
-
-then run
-allure serve allure-results
-
-or open the repo in file explorer, navigate to the bin, debug,net9.0 file and open powershell from within that 
-window (shift right click)
-run the command  allure serve allure-results
+run command  allure serve bin\Debug\net9.0\allure-results
